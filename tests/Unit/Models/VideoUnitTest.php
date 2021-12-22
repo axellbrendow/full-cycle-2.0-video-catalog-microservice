@@ -7,7 +7,7 @@ use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use PHPUnit\Framework\TestCase;
 
-class VideoTest extends TestCase
+class VideoUnitTest extends TestCase
 {
     private $video;
 
