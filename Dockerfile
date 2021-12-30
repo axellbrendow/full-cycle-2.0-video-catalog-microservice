@@ -1,7 +1,19 @@
 FROM php:7.3.6-fpm-alpine3.9
 
-RUN apk add --no-cache shadow openssl openssh bash mysql-client nodejs npm git
+RUN apk add --no-cache shadow \
+    openssl \
+    openssh \
+    bash \
+    mysql-client \
+    nodejs \
+    npm \
+    freetype-dev \
+    libjpeg-turbo-dev \
+    libpng-dev
+
 RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
+RUN docker-php-ext-install -j$(nproc) gd
 RUN ssh-keygen -A \
     && echo "www-data:www-data" | chpasswd \
     && echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config \
